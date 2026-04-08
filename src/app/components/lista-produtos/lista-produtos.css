@@ -1,0 +1,13 @@
+#lista-container {
+  margin: auto;
+  max-width: 1200px;
+  text-align: center;
+}
+
+.lista-produtos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
