@@ -1,4 +1,5 @@
 import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute} from '@angular/router';
 import { ProductService } from '../../services/product';
@@ -20,6 +21,7 @@ export class DetalheProduto implements OnInit {
   private productService = inject(ProductService);
   private store = inject(Store);  
   private cdRef = inject(ChangeDetectorRef);
+  private router = inject(Router);
 
     produtoRecebido: any = null;
  
@@ -35,7 +37,11 @@ export class DetalheProduto implements OnInit {
     }
   }
 
-     clicouComprar() {
-     this.store.dispatch(addToCart({product: this.produtoRecebido}));
-   }
+  clicouComprar() {
+    this.store.dispatch(addToCart({product: this.produtoRecebido}));
+  }
+
+  voltarHome() {
+    this.router.navigate(['/']);
+  }
 }

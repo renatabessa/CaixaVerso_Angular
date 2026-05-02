@@ -10,11 +10,18 @@
         <p class="preco-desconto">
           {{ produtoRecebido.price | discount: 15 | currency: 'BRL' : 'symbol' : '1.2-2' }}
         </p>
+        <p class="preco-original">
+          Preço original: {{ produtoRecebido.price | currency: 'BRL' : 'symbol' : '1.2-2' }}
+        </p>
+      } @else {
+        <p class="preco-sem-desconto">
+          Preço: {{ produtoRecebido.price | currency: 'BRL' : 'symbol' : '1.2-2' }}
+        </p>
       }
-      <p class="preco-original">
-        Preço original: {{ produtoRecebido.price | currency: 'BRL' : 'symbol' : '1.2-2' }}
-      </p>
-      <button (click)="clicouComprar()">Adicionar ao carrinho</button>
+      <div class="botoes-detalhe-produto">
+        <button (click)="clicouComprar()">Adicionar ao carrinho   🛒</button>
+        <button class="btn-voltar" (click)="voltarHome()">Voltar para Home</button>
+      </div>
     </div>
   </div>
 }

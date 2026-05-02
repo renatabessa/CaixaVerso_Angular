@@ -1,1 +1,40 @@
-<p>checkout works!</p>
+<div class="checkout-container">
+	<h2>Finalizar Compra</h2>
+	<section class="checkout-carrinho">
+		<h3>Itens no carrinho</h3>
+		<ul>
+			@for (item of carrinho$ | async; track item.id) {
+				<li class="checkout-item">
+					<img [src]="item.image" alt="{{item.title}}" width="60" />
+					<span>{{item.title}}</span>
+					<span>{{item.price | currency: 'BRL' : 'symbol' : '1.2-2'}}</span>
+				</li>
+			}
+		</ul>
+		<div class="checkout-total">
+			Total: {{ (carrinho$ | async)?.reduce((acc, item) => acc + item.price, 0) | currency: 'BRL' : 'symbol' : '1.2-2' }}
+		</div>
+	</section>
+
+	<section class="checkout-form">
+		<h3>Dados para entrega</h3>
+		<form [formGroup]="form" (ngSubmit)="finalizarPedido()">
+			<div>
+				<label>Nome:</label>
+				<input formControlName="nome" required />
+				<div *ngIf="form.get('nome')?.invalid && form.get('nome')?.touched" style="color:red; font-size:0.9em;">Nome obrigatório</div>
+			</div>
+			<div>
+				<label>Email:</label>
+				<input formControlName="email" type="email" required />
+				<div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" style="color:red; font-size:0.9em;">Email válido obrigatório</div>
+			</div>
+			<div>
+				<label>Endereço:</label>
+				<input formControlName="endereco" required />
+				<div *ngIf="form.get('endereco')?.invalid && form.get('endereco')?.touched" style="color:red; font-size:0.9em;">Endereço obrigatório</div>
+			</div>
+			<button type="submit" [disabled]="form.invalid">Finalizar Pedido</button>
+		</form>
+	</section>
+</div>

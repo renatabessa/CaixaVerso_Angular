@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+  import { Component, inject, OnInit } from '@angular/core';
 import { CardProduto } from '../card-produto/card-produto';
 import { ProductService } from '../../services/product';
 import { Store } from '@ngrx/store';
@@ -8,7 +8,7 @@ import { addToCart } from '../../store/cart.actions';
   selector: 'app-lista-produtos',
   imports: [CardProduto],
   templateUrl: './lista-produtos.html',
-  styleUrl: './lista-produtos.css',
+  styleUrls: ['./lista-produtos.css'],
 })
 export class ListaProdutos implements OnInit {
   //Injetando o serviço ProductService para acessar os dados dos produtos
