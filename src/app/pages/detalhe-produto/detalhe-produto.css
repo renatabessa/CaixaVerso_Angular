@@ -1,0 +1,108 @@
+body, :host {
+  background: #f7f7f7;
+}
+
+.card-produto {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.10);
+  padding: 3.5rem 4rem;
+  max-width: 1300px;
+  width: 98vw;
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 3rem;
+  border: 2px solid #cc5e0a;
+  overflow: hidden;
+}
+
+.card-produto-img {
+  flex: 0 0 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-produto-img img {
+  width: 320px;
+  height: 320px;
+  object-fit: contain;
+  border-radius: 16px;
+  background: #f0f0f0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.card-produto-info {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.2rem;
+  max-width: 900px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-line;
+}
+
+.card-produto-info h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0.7rem 0 0.3rem 0;
+  color: #222;
+  text-align: left;
+}
+
+.card-produto-info p {
+  color: #444;
+  font-size: 1.2rem;
+  margin: 0.3rem 0;
+  text-align: left;
+}
+
+.preco-desconto {
+  color: #e53935 !important;
+  font-weight: bold;
+  font-size: 1.7rem;
+}
+
+.preco-original {
+  color: #888;
+  text-decoration: line-through;
+  font-size: 1.1rem;
+}
+
+.card-produto-info button {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.9rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 1.2rem;
+  transition: background 0.2s;
+  align-self: flex-start;
+}
+.card-produto-info button:hover {
+  background: #125ea2;
+}
+
+@media (max-width: 900px) {
+  .card-produto {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem 1rem;
+    max-width: 98vw;
+  }
+  .card-produto-img img {
+    width: 220px;
+    height: 220px;
+  }
+  .card-produto-info {
+    max-width: 98vw;
+  }
+}

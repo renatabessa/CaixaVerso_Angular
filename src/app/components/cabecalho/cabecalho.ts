@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { CartState, clearCart } from '../../store/cart.actions';
 import { CommonModule } from '@angular/common';
@@ -8,13 +9,14 @@ import { CommonModule } from '@angular/common';
   selector: 'app-cabecalho',
   imports: [CommonModule],
   templateUrl: './cabecalho.html',
-  styleUrl: './cabecalho.css',
+  styleUrls: ['./cabecalho.css'],
 })
 export class Cabecalho {
 
  // cartService = inject(Cart);
 
  private store = inject(Store<{cart: CartState}>);
+  private router = inject(Router);
 
  //store.select retorna um Observable
  carrinho$ = this.store.select(state => state.cart.itens);
@@ -25,6 +27,10 @@ export class Cabecalho {
     //});
   esvaziarCarrinho(){
     this.store.dispatch(clearCart());
+  }
+
+  finalizarCompra(){
+    this.router.navigate(['/checkout']);
   }
 
 }

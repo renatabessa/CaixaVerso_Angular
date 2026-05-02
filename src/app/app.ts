@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { Cabecalho } from './components/cabecalho/cabecalho';
 import { Rodape } from './components/rodape/rodape';
-import { ListaProdutos } from './components/lista-produtos/lista-produtos';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [Cabecalho, Rodape, ListaProdutos],
+  imports: [Cabecalho, Rodape, RouterModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

@@ -1,1 +1,20 @@
-<p>detalhe-produto works!</p>
+@if (produtoRecebido) {
+  <div class="card-produto">
+    <div class="card-produto-img">
+      <img [src]="produtoRecebido.image" alt="{{ produtoRecebido.title }}" />
+    </div>
+    <div class="card-produto-info">
+      <h3>{{ produtoRecebido.title | uppercase | truncate: 30 }}</h3>
+      <p>{{ produtoRecebido.description | truncate: 200 }}</p>
+      @if (produtoRecebido.price > 100) {
+        <p class="preco-desconto">
+          {{ produtoRecebido.price | discount: 15 | currency: 'BRL' : 'symbol' : '1.2-2' }}
+        </p>
+      }
+      <p class="preco-original">
+        Preço original: {{ produtoRecebido.price | currency: 'BRL' : 'symbol' : '1.2-2' }}
+      </p>
+      <button (click)="clicouComprar()">Adicionar ao carrinho</button>
+    </div>
+  </div>
+}

@@ -1,20 +1,41 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { ProductService } from '../../services/product';
 import { addToCart } from '../../store/cart.actions';
 import { Store } from '@ngrx/store';
 import { DiscountPipe } from '../../pipes/discount-pipe';
+import { TruncatePipe } from '../../pipes/truncate-pipe';
+
 
   
 @Component({
   selector: 'app-detalhe-produto',
-  imports: [CommonModule, RouterLink, DiscountPipe],
+  imports: [CommonModule, DiscountPipe, TruncatePipe],
   templateUrl: './detalhe-produto.html',
-  styleUrl: './detalhe-produto.css',
+  styleUrls: ['./detalhe-produto.css'],
 })
-export class DetalheProduto {
+export class DetalheProduto implements OnInit {
   private route = inject(ActivatedRoute);
   private productService = inject(ProductService);
   private store = inject(Store);  
+  private cdRef = inject(ChangeDetectorRef);
+
+    produtoRecebido: any = null;
+ 
+
+  ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.productService.getProductById(id).subscribe((data) => {
+        this.produtoRecebido = data;
+        console.log("Produto recebido no detalhe:", this.produtoRecebido);
+        this.cdRef.detectChanges();
+      });
+    }
+  }
+
+     clicouComprar() {
+     this.store.dispatch(addToCart({product: this.produtoRecebido}));
+   }
 }

@@ -1,6 +1,7 @@
 <div class="card-produto">
   <img [src]="produtoRecebido.image" alt="{{ produtoRecebido.title }}" />
-  <h3>{{ produtoRecebido.title | uppercase | truncate: 15 }}</h3>
+  <h3>{{ produtoRecebido.title | uppercase | truncate: 10 }}</h3>
+  <p>{{ produtoRecebido.description | truncate: 15 }}</p>
 
   @if (produtoRecebido.price > 100) {
     <p class="preco-desconto">
@@ -8,7 +9,9 @@
     </p>
   }
 
-  <p class="preco-original">Preço original: {{ produtoRecebido.price | currency: 'BRL' : 'symbol' : '1.2-2' }}</p>
-
+  <p class="preco-original">
+    Preço original: {{ produtoRecebido.price | currency: 'BRL' : 'symbol' : '1.2-2' }}
+  </p>
+  <a [routerLink]="['/produto', produtoRecebido.id]">Ver detalhes</a>
   <button (click)="clicouComprar()">Adicionar ao carrinho</button>
 </div>

@@ -11,7 +11,7 @@
   padding: 16px;
   text-align: center;
   width: 220px; /* largura fixa para todos os cards */
-  height: 370px; /* altura fixa para todos os cards */
+  height: 430px; /* altura para todos os cards */
   background-color: #fff;
   display: flex;
   flex-direction: column;
