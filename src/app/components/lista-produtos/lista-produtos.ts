@@ -1,7 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CardProduto } from '../card-produto/card-produto';
-import { Product } from '../../services/product';
-import { Cart } from '../../services/cart';
+import { ProductService } from '../../services/product';
+import { Store } from '@ngrx/store';
+import { addToCart } from '../../store/cart.actions';
 
 @Component({
   selector: 'app-lista-produtos',
@@ -10,21 +11,32 @@ import { Cart } from '../../services/cart';
   styleUrl: './lista-produtos.css',
 })
 export class ListaProdutos implements OnInit {
-  //Injetando o serviço Product para acessar os dados dos produtos
-  productService = inject(Product);
-  cartService = inject(Cart);
+  //Injetando o serviço ProductService para acessar os dados dos produtos
+  productService = inject(ProductService);
+  private store = inject(Store);
   produtos: any[] = [];
+  carregando = true;
 
   //Obtendo a lista de produtos do serviço
   ngOnInit(): void {
-    console.log("Obtendo produtos...");
+    console.log('Obtendo produtos...');
     //simulando a chamada de uma API para obter os produtos
-    this.produtos = this.productService.getProducts();  }
-  
+    this.productService.getProducts().subscribe({
+      next: (dados: any) => {
+        this.produtos = dados;
+        this.carregando = false;
+      },
 
-   receberProduto(produto: any) {
-     console.log("Produto adicionado:", produto.title);
-     //Aqui você pode implementar a lógica para adicionar o produto ao carrinho, por exemplo
-     this.cartService.addItem(produto);
-   }
+      error: (erro) => {
+        console.error(erro);
+        this.carregando = false;
+        alert("Erro ao acessar o produto")
+      },
+    });
+  }
+
+  receberProduto(produto: any) {
+    console.log('Produto adicionado:', produto.title);
+    this.store.dispatch(addToCart({product: produto}));
+  }
 }

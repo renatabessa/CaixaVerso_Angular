@@ -1,7 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TruncatePipe } from '../../pipes/truncate-pipe';
 import { DiscountPipe } from '../../pipes/discount-pipe';
+import { Store } from '@ngrx/store';
+import { addToCart } from '../../store/cart.actions';
+
 
 
 @Component({
@@ -12,12 +15,12 @@ import { DiscountPipe } from '../../pipes/discount-pipe';
 })
 export class CardProduto {
   //Aqui você pode definir as propriedades do produto que serão exibidas no card
-  @Input() produtoRecebido!: any;
+  @Input() produtoRecebido!: any; // a exclamação significa confia que vai chegar
 
-   @Output() adicionar = new EventEmitter<any>()
+    private store = inject(Store) //injetando o carrinho
 
    clicouComprar() {
-     this.adicionar.emit(this.produtoRecebido);
+     this.store.dispatch(addToCart({product: this.produtoRecebido}));
    }
 }
 

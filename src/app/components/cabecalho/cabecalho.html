@@ -1,7 +1,12 @@
-<header>
-    <h1>Lojinha Angular</h1>
-    <div class="cart">
-        <span class="cart-icon">🛒</span>
-        <span class="cart-count">{{ cartService.obterQuantidadeItens() }}</span>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">Lojinha Angular</a>
+   
+    <div class="d-flex align-items-center">
+      <span class="badge bg-success fs-6">
+        Carrinho: {{ (carrinho$ | async)?.length }} itens.
+      </span>
+      <button class="btn btn-sm btn-danger ms-2 btn-esvaziar" (click)="esvaziarCarrinho()">Esvaziar</button>
     </div>
-</header>
+  </div>
+</nav>

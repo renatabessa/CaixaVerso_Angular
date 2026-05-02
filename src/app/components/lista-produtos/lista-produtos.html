@@ -2,9 +2,15 @@
   <h2>Lista de Produtos</h2>
   
   <div class="lista-produtos">
-@for (produto of produtos; track produto.id) {
-    <app-card-produto [produtoRecebido]="produto" (adicionar)="receberProduto($event)"></app-card-produto>
+@if(carregando){
+  <p>Carregando produtos...</p>
+}
+@else{
+  @for (produto of produtos; track produto.id) {
+    <app-card-produto 
+    [produtoRecebido]="produto">
+    </app-card-produto>
+}
 }
   </div>
 </div>
-
