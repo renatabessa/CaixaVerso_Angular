@@ -42,6 +42,6 @@ export class DetalheProduto implements OnInit {
   }
 
   voltarHome() {
-    this.router.navigate(['/']);
+    window.location.assign('/');
   }
 }

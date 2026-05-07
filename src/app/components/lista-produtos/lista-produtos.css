@@ -11,3 +11,12 @@
   justify-content: center;
 }
 
+.campo-busca {
+  margin-bottom: 20px;
+  padding: 8px 12px;
+  width: 300px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+

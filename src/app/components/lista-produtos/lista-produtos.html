@@ -1,16 +1,19 @@
 <div id="lista-container">
   <h2>Lista de Produtos</h2>
-  
+  <input [formControl]="busca" placeholder="Buscar produto..." class="campo-busca" />
   <div class="lista-produtos">
-@if(carregando){
-  <p>Carregando produtos...</p>
-}
-@else{
-  @for (produto of produtos; track produto.id) {
-    <app-card-produto 
-    [produtoRecebido]="produto">
-    </app-card-produto>
-}
-}
+    @if(carregando){
+      <p>Carregando produtos...</p>
+    }
+    @else{
+      @if(produtosFiltrados.length === 0){
+        <p>Nenhum produto encontrado.</p>
+      }
+      @for (produto of produtosFiltrados; track produto.id) {
+        <app-card-produto 
+          [produtoRecebido]="produto">
+        </app-card-produto>
+      }
+    }
   </div>
 </div>

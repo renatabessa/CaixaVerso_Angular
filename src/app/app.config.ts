@@ -2,6 +2,7 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { cartReducer } from './store/cart.reducer';
+import { cartMetaReducer } from './store/cart.metareducer';
 
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
@@ -12,6 +13,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes), provideClientHydration(withEventReplay()),
     provideHttpClient(),
-    provideStore({cart: cartReducer}) // registrando o carrinho
-]
+    provideStore({ cart: cartReducer }, { metaReducers: [cartMetaReducer] }) // registrando o carrinho com persistência
+  ]
 };
