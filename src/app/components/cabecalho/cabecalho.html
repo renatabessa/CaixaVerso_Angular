@@ -4,7 +4,7 @@
    
     <div class="d-flex align-items-center">
       <span class="badge bg-success fs-6">
-        🛒 Carrinho: {{ (carrinho$ | async)?.length }} itens.
+        🛒 Carrinho: {{ (totalItens$ | async) }} itens.
       </span>
       <button class="btn btn-sm btn-danger ms-2 btn-esvaziar" (click)="esvaziarCarrinho()">Esvaziar</button>
       <button class="btn btn-sm btn-primary ms-2" (click)="finalizarCompra()">Finalizar Compra</button>

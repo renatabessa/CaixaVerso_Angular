@@ -1,18 +1,16 @@
 import { createAction, props } from "@ngrx/store";
 
-// Define o contrato do nosso estado
-export interface CartState {
-    itens: any []
-};
+// Substituído por ICartState em models/cart.model.ts
 
+import { ICartState, ICartItem } from '../models/cart.model';
 // o estado inicial (carrinho vazio)
-export const initialCartState: CartState = {
-    itens:[]
+export const initialCartState: ICartState = {
+    itens: []
 }
 
 export const addToCart = createAction (
-    '[Card de Produto] Adicionar ao carrinho', // Qual action está sendo tomada(apenas de caracater informativo)
-    props<{product: any}>() //a carga que a ação carrega
+    '[Card de Produto] Adicionar ao carrinho',
+    props<{product: ICartItem}>()
 )
 
 export const clearCart = createAction (

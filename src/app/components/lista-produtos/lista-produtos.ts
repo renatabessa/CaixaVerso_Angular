@@ -1,6 +1,7 @@
   import { Component, inject, OnInit } from '@angular/core';
   import { FormControl } from '@angular/forms';
 import { CardProduto } from '../card-produto/card-produto';
+import { IProduct } from '../../models/product.model';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product';
 import { Store } from '@ngrx/store';
@@ -15,9 +16,9 @@ import { addToCart } from '../../store/cart.actions';
 export class ListaProdutos implements OnInit {
   //Injetando o serviço ProductService para acessar os dados dos produtos
   productService = inject(ProductService);
-  private store = inject(Store);
-  produtos: any[] = [];
-  produtosFiltrados: any[] = [];
+  private store = inject(Store<{ cart: import('../../models/cart.model').ICartState }>);
+  produtos: IProduct[] = [];
+  produtosFiltrados: IProduct[] = [];
   carregando = true;
   busca = new FormControl('');
 

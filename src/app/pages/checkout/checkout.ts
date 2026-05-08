@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { ICartState } from '../../models/cart.model';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
+import { ICartItem } from '../../models/cart.model';
 
 @Component({
   selector: 'app-checkout',
@@ -12,11 +14,15 @@ import { Observable } from 'rxjs';
   styleUrls: ['./checkout.css'],
 })
 export class Checkout {
-  carrinho$: Observable<any[]>;
+  carrinho$: Observable<ICartItem[]>;
   form: FormGroup;
 
-  constructor(private fb: FormBuilder, private store: Store) {
-    this.carrinho$ = this.store.select((state: any) => state.cart.itens);
+  constructor(private fb: FormBuilder, private store: Store<{ cart: ICartState }>) {
+    this.carrinho$ = this.store.select((state: any) => {
+      const itens = state.cart?.itens ?? [];
+      console.log('Checkout select - itens:', itens);
+      return itens;
+    });
     this.form = this.fb.group({
       nome: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],

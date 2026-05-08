@@ -1,20 +1,30 @@
 import { ActionReducer, INIT, UPDATE } from '@ngrx/store';
-// MetaReducer para persistir o estado global { cart: CartState }
-import { CartState } from './cart.actions';
-export function cartMetaReducer(reducer: ActionReducer<{ cart: CartState }>): ActionReducer<{ cart: CartState }> {
+import { ICartState } from '../models/cart.model';
+
+function isBrowser(): boolean {
+  return typeof window !== 'undefined' && !!window.localStorage;
+}
+
+// MetaReducer global: manipula apenas o slice cart do estado global
+export function cartMetaReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return (state, action) => {
-    if (action.type === INIT || action.type === UPDATE) {
+    let nextState = reducer(state, action);
+    // Ao inicializar, restaura apenas o slice cart
+    if (isBrowser() && (action.type === INIT || action.type === UPDATE)) {
       const storageValue = localStorage.getItem('cart');
       if (storageValue) {
         try {
-          return JSON.parse(storageValue);
+          const cart = JSON.parse(storageValue);
+          nextState = { ...nextState, cart };
         } catch {
-          return reducer(state, action);
+          // ignora erro e mantém o estado
         }
       }
     }
-    const nextState = reducer(state, action);
-    localStorage.setItem('cart', JSON.stringify(nextState));
+    // Sempre salva apenas o slice cart
+    if (isBrowser() && nextState && nextState.cart) {
+      localStorage.setItem('cart', JSON.stringify(nextState.cart));
+    }
     return nextState;
   };
 }

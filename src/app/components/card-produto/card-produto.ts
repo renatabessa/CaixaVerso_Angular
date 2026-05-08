@@ -1,9 +1,11 @@
 import { Component, inject, Input } from '@angular/core';
+import { IProduct } from '../../models/product.model';
 import { CommonModule } from '@angular/common';
 import { TruncatePipe } from '../../pipes/truncate-pipe';
 import { DiscountPipe } from '../../pipes/discount-pipe';
 import { Store } from '@ngrx/store';
 import { addToCart } from '../../store/cart.actions';
+import { ICartItem, ICartState } from '../../models/cart.model';
 import { RouterLink } from '@angular/router';
 
 
@@ -16,12 +18,13 @@ import { RouterLink } from '@angular/router';
 })
 export class CardProduto {
   //Aqui você pode definir as propriedades do produto que serão exibidas no card
-  @Input() produtoRecebido!: any; // a exclamação significa confia que vai chegar
+  @Input() produtoRecebido!: IProduct; // a exclamação significa confia que vai chegar
 
-    private store = inject(Store) //injetando o carrinho
+    private store = inject(Store<{ cart: ICartState }>) //injetando o carrinho
 
    clicouComprar() {
-     this.store.dispatch(addToCart({product: this.produtoRecebido}));
+     const item: ICartItem = { product: this.produtoRecebido, quantity: 1 };
+     this.store.dispatch(addToCart({ product: item }));
    }
 }
 

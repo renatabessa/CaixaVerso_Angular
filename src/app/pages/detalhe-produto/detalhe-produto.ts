@@ -5,6 +5,7 @@ import { ActivatedRoute} from '@angular/router';
 import { ProductService } from '../../services/product';
 import { addToCart } from '../../store/cart.actions';
 import { Store } from '@ngrx/store';
+import { ICartState } from '../../models/cart.model';
 import { DiscountPipe } from '../../pipes/discount-pipe';
 import { TruncatePipe } from '../../pipes/truncate-pipe';
 
@@ -19,7 +20,7 @@ import { TruncatePipe } from '../../pipes/truncate-pipe';
 export class DetalheProduto implements OnInit {
   private route = inject(ActivatedRoute);
   private productService = inject(ProductService);
-  private store = inject(Store);  
+  private store = inject(Store<{ cart: ICartState }>);  
   private cdRef = inject(ChangeDetectorRef);
   private router = inject(Router);
 
@@ -38,7 +39,8 @@ export class DetalheProduto implements OnInit {
   }
 
   clicouComprar() {
-    this.store.dispatch(addToCart({product: this.produtoRecebido}));
+    const item = { product: this.produtoRecebido, quantity: 1 };
+    this.store.dispatch(addToCart({ product: item }));
   }
 
   voltarHome() {
